@@ -1,0 +1,221 @@
+@import 'tailwindcss';
+
+/* Design tokens (spec section 8). Components use these only — never raw colors. */
+:root {
+  --bg-app: #0f1115;
+  --bg-surface: #1a1e24;
+  --bg-hover: #262c36;
+  --border: #2a303a;
+  --text-primary: #e6e9ef;
+  --text-secondary: #9aa3b2;
+  --accent: #21c08b;
+  --accent-contrast: #0b0d10;
+  --danger: #f04949;
+  --danger-contrast: #ffffff;
+  --warning: #f5a524;
+  --terminal-bg: #0b0d10;
+  --terminal-fg: #e6e9ef;
+  --terminal-cursor: #21c08b;
+  --terminal-selection: #21c08b40;
+  /* ANSI 16 colors, tuned to the graphite + green palette. */
+  --ansi-black: #2a303a;
+  --ansi-red: #f0616d;
+  --ansi-green: #21c08b;
+  --ansi-yellow: #f5b94f;
+  --ansi-blue: #5aa2f7;
+  --ansi-magenta: #c38bf2;
+  --ansi-cyan: #3fc5d1;
+  --ansi-white: #c9d1dc;
+  --ansi-bright-black: #5b6472;
+  --ansi-bright-red: #ff7b86;
+  --ansi-bright-green: #4fd9a7;
+  --ansi-bright-yellow: #ffd27a;
+  --ansi-bright-blue: #82bbff;
+  --ansi-bright-magenta: #d6a8ff;
+  --ansi-bright-cyan: #6fdde6;
+  --ansi-bright-white: #ffffff;
+  --focus-ring: color-mix(in srgb, var(--accent) 55%, transparent);
+  --accent-soft: color-mix(in srgb, var(--accent) 14%, transparent);
+  --danger-soft: color-mix(in srgb, var(--danger) 14%, transparent);
+  --warning-soft: color-mix(in srgb, var(--warning) 14%, transparent);
+  --overlay: color-mix(in srgb, #000 55%, transparent);
+  color-scheme: dark;
+}
+
+:root[data-theme='light'] {
+  --bg-app: #f6f7f9;
+  --bg-surface: #ffffff;
+  --bg-hover: #e9ecf0;
+  --border: #dde1e7;
+  --text-primary: #15181d;
+  --text-secondary: #5b6472;
+  --accent: #0e9f6e;
+  --accent-contrast: #ffffff;
+  --danger: #dc2626;
+  --warning: #d97706;
+  --terminal-bg: #ffffff;
+  --terminal-fg: #15181d;
+  --terminal-cursor: #0e9f6e;
+  --terminal-selection: #0e9f6e33;
+  --ansi-black: #15181d;
+  --ansi-red: #c92a3a;
+  --ansi-green: #0e8a5f;
+  --ansi-yellow: #a86a00;
+  --ansi-blue: #1d63d8;
+  --ansi-magenta: #8a3fc7;
+  --ansi-cyan: #0b7f8a;
+  --ansi-white: #8a93a3;
+  --ansi-bright-black: #5b6472;
+  --ansi-bright-red: #e0404f;
+  --ansi-bright-green: #12a370;
+  --ansi-bright-yellow: #c47f00;
+  --ansi-bright-blue: #3b7ff0;
+  --ansi-bright-magenta: #a259e0;
+  --ansi-bright-cyan: #1499a5;
+  --ansi-bright-white: #b8c0cc;
+  --overlay: color-mix(in srgb, #000 30%, transparent);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-app: var(--bg-app);
+  --color-surface: var(--bg-surface);
+  --color-hover: var(--bg-hover);
+  --color-line: var(--border);
+  --color-fg: var(--text-primary);
+  --color-muted: var(--text-secondary);
+  --color-accent: var(--accent);
+  --color-accent-contrast: var(--accent-contrast);
+  --color-accent-soft: var(--accent-soft);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-danger-contrast: var(--danger-contrast);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-terminal: var(--terminal-bg);
+  --color-overlay: var(--overlay);
+
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', monospace;
+
+  --text-caption: 12px;
+  --text-caption--line-height: 16px;
+  --text-body: 13px;
+  --text-body--line-height: 20px;
+  --text-title: 16px;
+  --text-title--line-height: 24px;
+
+  --radius-control: 6px;
+  --radius-card: 8px;
+  --radius-dialog: 12px;
+
+  --animate-fade-in: fade-in 160ms ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Connect overlay: packets travelling from this PC to the server. */
+@keyframes packet {
+  0% {
+    left: 0%;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  15%,
+  85% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+}
+
+@keyframes ring {
+  0% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 20px;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+input,
+textarea,
+.selectable {
+  user-select: text;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 1px;
+}
+
+::selection {
+  background: var(--accent-soft);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Terminal: thin themed scrollbar instead of the default grey one. */
+.terminal-host .xterm-viewport {
+  background-color: transparent !important;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.terminal-host .xterm .xterm-scrollable-element > .scrollbar > .slider {
+  background: var(--border) !important;
+  border-radius: 4px;
+}
