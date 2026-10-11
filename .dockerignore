@@ -1,0 +1,10 @@
+**/node_modules
+**/dist
+**/.next
+**/out
+**/release
+**/dist-electron
+**/.env
+**/.env.*
+!**/.env.example
+.git
