@@ -6,7 +6,7 @@ COPY pnpm-lock.yaml pnpm-workspace.yaml package.json .npmrc ./
 COPY apps/api/package.json apps/api/
 COPY apps/desktop/package.json apps/desktop/
 COPY packages/shared/package.json packages/shared/
-RUN pnpm install --frozen-lockfile --filter @serverdeck/api...
+RUN pnpm install --frozen-lockfile --prod=false --filter @serverdeck/api...
 COPY tsconfig.base.json ./
 COPY packages/shared packages/shared
 COPY apps/api apps/api
